@@ -10,19 +10,29 @@ class App extends Component {
         { id: 1, name: 'Learn JSX', isComplete: false },
         { id: 2, name: 'Build an app', isComplete: false },
         { id: 3, name: 'Ship it', isComplete: true },
-      ]
+      ],
+      currentTodo: ''
     }
+    this.handleInputChange = this.handleInputChange.bind(this)
   }
+
+  handleInputChange(evt) {
+    evt.preventDefault()
+    this.setState({
+      currentTodo: evt.target.value
+    })
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">React Todos</h1>
-        </header>
+        </header> 
         <div className="Todo-app">
           <form>
-            <input type="text"/>
+            <input type="text" onChange={this.handleInputChange} value={this.currentTodo} />
           </form>
           <div className="Todo-list">
             <ul>
