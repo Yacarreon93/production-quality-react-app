@@ -23,13 +23,13 @@ test('pipe passses the results of inc to dbl', () => {
   expect(result).toBe(6)
 })
 
-test('', () => {
+test('pipe passses the results of dbl to inc', () => {
   const pipeline = pipe(dbl, inc)
   const result = pipeline(2)
   expect(result).toBe(5)
 })
 
-test('', () => {
+test('pipe works with more than 2 functions', () => {
   const pipeline = pipe(add, inc, dbl, inc)
   const result = pipeline(1, 2)
   expect(result).toBe(9)
