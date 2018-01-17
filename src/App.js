@@ -5,7 +5,7 @@ import './App.css'
 import { TodoForm, TodoList, Footer } from './components/todo'
 import { addTodo, generateId, findById, toggleTodo, updateTodo, removeTodo, filterTodos } from './lib/todoHelpers';
 import { partial, pipe } from './lib/utils'
-import { loadTodos, createTodo } from './lib/todoService'
+import { loadTodos, createTodo, saveTodo } from './lib/todoService'
 
 class App extends Component {
 
@@ -29,9 +29,12 @@ class App extends Component {
   }
 
   handleToggle = (id) => {
-    const getupdatedTodos = pipe(findById, toggleTodo, partial(updateTodo, this.state.todos))
-    const updatedTodos = getupdatedTodos(id, this.state.todos)
+    const getToggledTodo = pipe(findById, toggleTodo)
+    const updated = getToggledTodo(id, this.state.todos)
+    const getupdatedTodos =  partial(updateTodo, this.state.todos)
+    const updatedTodos = getupdatedTodos(updated)
     this.setState({ todos: updatedTodos })
+    saveTodo(updated).then(() => this.showTempMessage('Todo updated'))
   }
 
   handleSubmit = (evt) => {
