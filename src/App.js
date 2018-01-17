@@ -5,21 +5,21 @@ import './App.css'
 import { TodoForm, TodoList, Footer } from './components/todo'
 import { addTodo, generateId, findById, toggleTodo, updateTodo, removeTodo, filterTodos } from './lib/todoHelpers';
 import { partial, pipe } from './lib/utils'
-
+import { loadTodos, createTodo } from './lib/todoService'
 
 class App extends Component {
 
   state = {
-    todos: [
-      { id: 1, name: 'Learn JSX', isComplete: false },
-      { id: 2, name: 'Build an app', isComplete: false },
-      { id: 3, name: 'Ship it', isComplete: true },
-    ],
+    todos: [],
     currentTodo: ''
   }
 
   static contextTypes = {
     route: PropTypes.string
+  }
+
+  componentDidMount() {
+    loadTodos().then(todos => this.setState({ todos }))
   }
 
   handleRemove = (id, evt) => {
@@ -44,6 +44,7 @@ class App extends Component {
       currentTodo: '',
       errorMessage: ''
     })
+    createTodo(newTodo).then(() => console.log('Todo added'))
   }
 
   handleEmptySubmit = (evt) => {
