@@ -6,7 +6,13 @@ export const TodoList = (props) => {
   return (
     <div className="Todo-list">
       <ul>
-        {props.todos.map(todo => <TodoItem handleToggle={props.handleToggle} key={todo.id} {...todo} />)}
+        {props.todos.map(todo => (
+          <TodoItem
+            key={todo.id}
+            handleToggle={props.handleToggle}
+            handleRemove={props.handleRemove}
+            {...todo} />
+        ))}
       </ul>
     </div>
   )
@@ -14,5 +20,6 @@ export const TodoList = (props) => {
 
 TodoList.propTypes = {
   todos: PropTypes.array.isRequired,
-  handleToggle: PropTypes.func.isRequired
+  handleToggle: PropTypes.func.isRequired,
+  handleRemove: PropTypes.func.isRequired
 }
